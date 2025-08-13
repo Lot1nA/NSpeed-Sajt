@@ -8,10 +8,11 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Google Fonts: Inter -->
+    <!-- Google Fonts: Inter - Preload critical fonts for better performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet"></noscript>
     
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -255,6 +256,84 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+
+        /* Mobile Menu - Main Navigation */
+        #mobile-menu {
+            position: fixed;
+            top: 0;
+            right: 0; /* Starts off-screen to the right */
+            width: 250px; /* Width of the menu */
+            height: 100%;
+            background-color: #1F2937; /* gray-800 */
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
+            transform: translateX(100%); /* Initially off-screen */
+            transition: transform 0.3s ease-in-out;
+            z-index: 900; /* Below modal overlay, above main content */
+            padding-top: 80px; /* Space for fixed header */
+            overflow-y: auto; /* Enable scrolling for long menus */
+        }
+        #mobile-menu.open {
+            transform: translateX(0); /* Slides into view */
+        }
+
+        /* Overlay for mobile menu */
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 800; /* Below menu, above content */
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        }
+        .mobile-menu-overlay.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Body scroll lock */
+        body.no-scroll {
+            overflow: hidden;
+        }
+
+        /* Product Filters Side Menu */
+        #filter-sidebar {
+            position: fixed;
+            top: 0;
+            left: 0; /* Starts off-screen to the left */
+            width: 250px; /* Width of the filter menu */
+            height: 100%;
+            background-color: #1F2937; /* gray-800 */
+            box-shadow: 5px 0 15px rgba(0, 0, 0, 0.5);
+            transform: translateX(-100%); /* Initially off-screen */
+            transition: transform 0.3s ease-in-out;
+            z-index: 900; /* Below modal overlay, above main content */
+            padding-top: 80px; /* Space for fixed header */
+            overflow-y: auto; /* Enable scrolling for long menus */
+        }
+        #filter-sidebar.open {
+            transform: translateX(0); /* Slides into view */
+        }
+        /* Hide filters by default on small screens, show as side menu */
+        @media (max-width: 767px) { /* md breakpoint */
+            aside.w-full.md:w-1/4.lg:w-1\/5 { /* Target the original aside */
+                display: none; /* Hide original aside */
+            }
+            #filter-sidebar {
+                display: block; /* Show side menu on small screens */
+            }
+        }
+        @media (min-width: 768px) { /* md breakpoint */
+            #filter-sidebar {
+                display: none; /* Hide side menu on larger screens */
+            }
+            aside.w-full.md:w-1/4.lg:w-1\/5 {
+                display: block; /* Show original aside on larger screens */
+            }
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -278,13 +357,18 @@
 
             <!-- Mobilni meni (Hamburger) -->
             <div class="md:hidden">
-                <button id="mobile-menu-button" class="text-white focus:outline-none">
+                <button id="mobile-menu-button" class="text-white focus:outline-none" aria-label="Otvori meni">
                     <i class="fas fa-bars fa-lg"></i>
                 </button>
             </div>
         </div>
-        <!-- Mobilna navigacija -->
-        <div id="mobile-menu" class="hidden md:hidden bg-gray-800">
+        <!-- Mobilna navigacija - Side Menu -->
+        <div id="mobile-menu" class="bg-gray-800">
+            <div class="p-4 text-right">
+                <button id="close-mobile-menu-button" class="text-white focus:outline-none" aria-label="Zatvori meni">
+                    <i class="fas fa-times fa-lg"></i>
+                </button>
+            </div>
             <a href="#" class="nav-link block text-center py-3 px-4 text-sm text-gray-200 hover:bg-gray-700" data-page="pocetna">Početna</a>
             <a href="#" class="nav-link block text-center py-3 px-4 text-sm text-gray-200 hover:bg-gray-700" data-page="novosti">Novosti</a>
             <a href="#" class="nav-link block text-center py-3 px-4 text-sm text-gray-200 hover:bg-gray-700" data-page="prodaja">Prodaja Opreme</a>
@@ -316,7 +400,7 @@
             <div class="py-20 bg-gray-900">
                 <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
                     <div>
-                        <img src="DSC-5122-1-scaled.jpg" alt="Enterijer NSPEED centra" class="rounded-lg shadow-2xl">
+                        <img src="DSC-5122-1-scaled.jpg" alt="Enterijer NSPEED centra" class="rounded-lg shadow-2xl" loading="lazy">
                     </div>
                     <div>
                         <h2 class="text-4xl font-bold mb-4">Dobrodošli u <span class="gradient-text">NSPEED</span></h2>
@@ -338,7 +422,7 @@
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <!-- Kartica za vest -->
                     <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg transform hover:-translate-y-2 transition-transform duration-300">
-                        <img src="https://placehold.co/600x400/06B6D4/FFF?text=Novi+F1+Simulator" class="w-full h-48 object-cover" alt="Slika vesti">
+                        <img src="https://placehold.co/600x400/06B6D4/FFF?text=Novi+F1+Simulator" class="w-full h-48 object-cover" alt="Slika vesti" loading="lazy">
                         <div class="p-6">
                             <p class="text-sm text-gray-400 mb-2">11. Avgust, 2025.</p>
                             <h3 class="text-xl font-bold mb-3 text-white">Novi F1 Simulatori su stigli!</h3>
@@ -348,7 +432,7 @@
                     </div>
                     <!-- Kartica za vest -->
                     <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg transform hover:-translate-y-2 transition-transform duration-300">
-                        <img src="https://placehold.co/600x400/F97316/FFF?text=GT3+Turnir" class="w-full h-48 object-cover" alt="Slika vesti">
+                        <img src="https://placehold.co/600x400/F97316/FFF?text=GT3+Turnir" class="w-full h-48 object-cover" alt="Slika vesti" loading="lazy">
                         <div class="p-6">
                             <p class="text-sm text-gray-400 mb-2">1. Avgust, 2025.</p>
                             <h3 class="text-xl font-bold mb-3 text-white">Najava Mesečnog Turnira u GT3 Klasi</h3>
@@ -358,7 +442,7 @@
                     </div>
                     <!-- Kartica za vest -->
                     <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg transform hover:-translate-y-2 transition-transform duration-300">
-                        <img src="https://placehold.co/600x400/8B5CF6/FFF?text=Team+Building" class="w-full h-48 object-cover" alt="Slika vesti">
+                        <img src="https://placehold.co/600x400/8B5CF6/FFF?text=Team+Building" class="w-full h-48 object-cover" alt="Slika vesti" loading="lazy">
                         <div class="p-6">
                             <p class="text-sm text-gray-400 mb-2">25. Jul, 2025.</p>
                             <h3 class="text-xl font-bold mb-3 text-white">Organizujte nezaboravan Team Building</h3>
@@ -377,7 +461,48 @@
                 
                 <div class="flex flex-col md:flex-row gap-8">
                     <!-- Filteri (Sidebar) - Preneseno iz Shop - NSpeed Sim Racing.html -->
-                    <aside class="w-full md:w-1/4 lg:w-1/5">
+                    <!-- Filter button for small screens -->
+                    <div class="md:hidden w-full mb-6">
+                        <button id="filter-button" class="w-full bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-md transition duration-300" aria-label="Prikaži filtere">
+                            <i class="fas fa-filter mr-2"></i> Filteri
+                        </button>
+                    </div>
+
+                    <!-- Filter Sidebar (for small screens) -->
+                    <div id="filter-sidebar" class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-xl font-bold text-white">Filteri</h3>
+                            <button id="close-filter-button" class="text-white focus:outline-none" aria-label="Zatvori filtere">
+                                <i class="fas fa-times fa-lg"></i>
+                            </button>
+                        </div>
+                        <ul class="space-y-2">
+                            <li><button class="filter-btn active" data-filter="sve">Svi artikli</button></li>
+                            <li><button class="filter-btn" data-filter="setovi">Setovi</button></li>
+                            <li><button class="filter-btn" data-filter="volani">Volani</button></li>
+                            <li><button class="filter-btn" data-filter="pedale">Pedale</button></li>
+                            <li><button class="filter-btn" data-filter="menjaci">Menjači i Ručne</button></li>
+                            <li><button class="filter-btn" data-filter="sedista">Sedišta i Cockpiti</button></li>
+                            <li><button class="filter-btn" data-filter="ostalo">Ostalo</button></li>
+                            <li><button class="filter-btn" data-filter="baze">Baze</button></li>
+                            <li><button class="filter-btn" data-filter="rukavice">Rukavice</button></li>
+                        </ul>
+                        <h3 class="text-xl font-bold text-white mb-4 mt-8">Brendovi</h3>
+                        <ul class="space-y-2">
+                            <li><button class="filter-btn" data-filter="moza">MOZA</button></li>
+                            <li><button class="filter-btn" data-filter="fanatec">Fanatec</button></li>
+                            <li><button class="filter-btn" data-filter="heusinkveld">Heusinkveld</button></li>
+                            <li><button class="filter-btn" data-filter="simlab">Sim-Lab</button></li>
+                            <li><button class="filter-btn" data-filter="playseat">Playseat</button></li>
+                        </ul>
+                        <h3 class="text-xl font-bold text-white mb-4 mt-8">Kompatibilnost</h3>
+                        <ul class="space-y-2">
+                            <li><button class="filter-btn" data-filter="pc">PC</button></li>
+                        </ul>
+                    </div>
+
+                    <!-- Original filters (for larger screens) -->
+                    <aside class="hidden md:block w-full md:w-1/4 lg:w-1/5">
                         <div class="bg-gray-800 p-6 rounded-lg shadow-lg sticky top-28">
                             <h3 class="text-xl font-bold text-white mb-4">Kategorije</h3>
                             <ul class="space-y-2">
@@ -406,13 +531,14 @@
                         </div>
                     </aside>
 
+
                     <!-- Lista Proizvoda - Preneseno i prilagođeno iz Shop - NSpeed Sim Racing.html -->
                     <div class="w-full md:w-3/4 lg:w-4/5">
                         <div id="product-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
                             
                             <!-- Artikal 1: Aluminijumski 3090 sim kokpit -->
                             <div class="product-item bg-gray-800 rounded-lg overflow-hidden shadow-lg text-center p-6 flex flex-col" data-category="sedista" data-brand="none" data-kompatibilnost="pc">
-                                <img src="https://nspeed.rs/wp-content/uploads/2024/08/IMG-4895-300x300.jpg" class="mx-auto h-40 w-auto mb-4" alt="Aluminijumski 3090 sim kokpit">
+                                <img src="https://nspeed.rs/wp-content/uploads/2024/08/IMG-4895-300x300.jpg" class="mx-auto h-40 w-auto mb-4" alt="Aluminijumski 3090 sim kokpit" loading="lazy">
                                 <h3 class="text-lg font-bold text-white flex-grow">Aluminijumski 3090 sim kokpit</h3>
                                 <p class="text-gray-400">Rigovi i sedišta</p>
                                 <p class="text-2xl font-bold gradient-text my-3">39.990&nbsp;rsd</p>
@@ -422,7 +548,7 @@
 
                             <!-- Artikal 2: Aluminijumski 40160 Prime kokpit -->
                             <div class="product-item bg-gray-800 rounded-lg overflow-hidden shadow-lg text-center p-6 flex flex-col" data-category="sedista" data-brand="none" data-kompatibilnost="pc">
-                                <img src="https://nspeed.rs/wp-content/uploads/2025/04/20210422144200-300x300.jpg" class="mx-auto h-40 w-auto mb-4" alt="Aluminijumski 40160 Prime kokpit">
+                                <img src="https://nspeed.rs/wp-content/uploads/2025/04/20210422144200-300x300.jpg" class="mx-auto h-40 w-auto mb-4" alt="Aluminijumski 40160 Prime kokpit" loading="lazy">
                                 <h3 class="text-lg font-bold text-white flex-grow">Aluminijumski 40160 Prime kokpit</h3>
                                 <p class="text-gray-400">Rigovi i sedišta</p>
                                 <p class="text-2xl font-bold gradient-text my-3">64.990&nbsp;rsd</p>
@@ -432,7 +558,7 @@
 
                             <!-- Artikal 3: Aluminijumski 4080 crni sim kokpit -->
                             <div class="product-item bg-gray-800 rounded-lg overflow-hidden shadow-lg text-center p-6 flex flex-col" data-category="sedista" data-brand="none" data-kompatibilnost="pc">
-                                <img src="https://nspeed.rs/wp-content/uploads/2024/08/Untitled-300x300.png" class="mx-auto h-40 w-auto mb-4" alt="Aluminijumski 4080 crni sim kokpit">
+                                <img src="https://nspeed.rs/wp-content/uploads/2024/08/Untitled-300x300.png" class="mx-auto h-40 w-auto mb-4" alt="Aluminijumski 4080 crni sim kokpit" loading="lazy">
                                 <h3 class="text-lg font-bold text-white flex-grow">Aluminijumski 4080 crni sim kokpit</h3>
                                 <p class="text-gray-400">Rigovi i sedišta</p>
                                 <p class="text-2xl font-bold gradient-text my-3">48.990&nbsp;rsd</p>
@@ -442,7 +568,7 @@
 
                             <!-- Artikal 4: Apex postolje za volan -->
                             <div class="product-item bg-gray-800 rounded-lg overflow-hidden shadow-lg text-center p-6 flex flex-col" data-category="sedista" data-brand="none" data-kompatibilnost="pc">
-                                <img src="https://nspeed.rs/wp-content/uploads/2025/05/X1-3-300x300.jpg" class="mx-auto h-40 w-auto mb-4" alt="Apex postolje za volan">
+                                <img src="https://nspeed.rs/wp-content/uploads/2025/05/X1-3-300x300.jpg" class="mx-auto h-40 w-auto mb-4" alt="Apex postolje za volan" loading="lazy">
                                 <h3 class="text-lg font-bold text-white flex-grow">Apex postolje za volan</h3>
                                 <p class="text-gray-400">Rigovi i sedišta</p>
                                 <p class="text-2xl font-bold gradient-text my-3">18.490&nbsp;rsd</p>
@@ -452,7 +578,7 @@
 
                             <!-- Artikal 5: Držač za ručnu kočnicu i menjač za sto -->
                             <div class="product-item bg-gray-800 rounded-lg overflow-hidden shadow-lg text-center p-6 flex flex-col" data-category="ostalo" data-brand="none" data-kompatibilnost="pc">
-                                <img src="https://nspeed.rs/wp-content/uploads/2024/08/36-300x300.jpg" class="mx-auto h-40 w-auto mb-4" alt="Držač za ručnu kočnicu i menjač za sto">
+                                <img src="https://nspeed.rs/wp-content/uploads/2024/08/36-300x300.jpg" class="mx-auto h-40 w-auto mb-4" alt="Držač za ručnu kočnicu i menjač za sto" loading="lazy">
                                 <h3 class="text-lg font-bold text-white flex-grow">Držač za ručnu kočnicu i menjač za sto</h3>
                                 <p class="text-gray-400">Ostalo</p>
                                 <p class="text-2xl font-bold gradient-text my-3">5.490&nbsp;rsd</p>
@@ -462,7 +588,7 @@
 
                             <!-- Artikal 6: ES volan formula mod -->
                             <div class="product-item bg-gray-800 rounded-lg overflow-hidden shadow-lg text-center p-6 flex flex-col" data-category="volani" data-brand="none" data-kompatibilnost="pc">
-                                <img src="https://nspeed.rs/wp-content/uploads/2024/08/ES-Mod3.png-300x300.jpg" class="mx-auto h-40 w-auto mb-4" alt="ES volan formula mod">
+                                <img src="https://nspeed.rs/wp-content/uploads/2024/08/ES-Mod3.png-300x300.jpg" class="mx-auto h-40 w-auto mb-4" alt="ES volan formula mod" loading="lazy">
                                 <h3 class="text-lg font-bold text-white flex-grow">ES volan formula mod</h3>
                                 <p class="text-gray-400">Volani</p>
                                 <p class="text-2xl font-bold gradient-text my-3">7.490&nbsp;rsd</p>
@@ -472,7 +598,7 @@
 
                             <!-- Artikal 7: ES volan mod 12ich -->
                             <div class="product-item bg-gray-800 rounded-lg overflow-hidden shadow-lg text-center p-6 flex flex-col" data-category="volani" data-brand="none" data-kompatibilnost="pc">
-                                <img src="https://nspeed.rs/wp-content/uploads/2024/08/12-inch-2-300x300.png" class="mx-auto h-40 w-auto mb-4" alt="ES volan mod 12ich">
+                                <img src="https://nspeed.rs/wp-content/uploads/2024/08/12-inch-2-300x300.png" class="mx-auto h-40 w-auto mb-4" alt="ES volan mod 12ich" loading="lazy">
                                 <h3 class="text-lg font-bold text-white flex-grow">ES volan mod 12ich</h3>
                                 <p class="text-gray-400">Volani</p>
                                 <p class="text-2xl font-bold gradient-text my-3">10.490&nbsp;rsd</p>
@@ -482,7 +608,7 @@
 
                             <!-- Artikal 8: GTZ Kokpit sa sedištem i držačem monitora -->
                             <div class="product-item bg-gray-800 rounded-lg overflow-hidden shadow-lg text-center p-6 flex flex-col" data-category="sedista" data-brand="none" data-kompatibilnost="pc">
-                                <img src="https://nspeed.rs/wp-content/uploads/2025/04/1691891521-300x300.jpg" class="mx-auto h-40 w-auto mb-4" alt="GTZ Kokpit sa sedištem i držačem monitora">
+                                <img src="https://nspeed.rs/wp-content/uploads/2025/04/1691891521-300x300.jpg" class="mx-auto h-40 w-auto mb-4" alt="GTZ Kokpit sa sedištem i držačem monitora" loading="lazy">
                                 <h3 class="text-lg font-bold text-white flex-grow">GTZ Kokpit sa sedištem i držačem monitora</h3>
                                 <p class="text-gray-400">Rigovi i sedišta</p>
                                 <p class="text-2xl font-bold gradient-text my-3">76.490&nbsp;rsd</p>
@@ -492,7 +618,7 @@
 
                             <!-- Artikal 9: Integrisani držač monitora - Single -->
                             <div class="product-item bg-gray-800 rounded-lg overflow-hidden shadow-lg text-center p-6 flex flex-col" data-category="sedista" data-brand="none" data-kompatibilnost="pc">
-                                <img src="https://nspeed.rs/wp-content/uploads/2025/04/unnamed-file-300x300.png" class="mx-auto h-40 w-auto mb-4" alt="Integrisani držač monitora - Single">
+                                <img src="https://nspeed.rs/wp-content/uploads/2025/04/unnamed-file-300x300.png" class="mx-auto h-40 w-auto mb-4" alt="Integrisani držač monitora - Single" loading="lazy">
                                 <h3 class="text-lg font-bold text-white flex-grow">Integrisani držač monitora – Single</h3>
                                 <p class="text-gray-400">Rigovi i sedišta</p>
                                 <p class="text-2xl font-bold gradient-text my-3">19.990&nbsp;rsd</p>
@@ -502,7 +628,7 @@
 
                             <!-- Artikal 10: MOZA Adapter za bazu R21/R16/R9/R9 -->
                             <div class="product-item bg-gray-800 rounded-lg overflow-hidden shadow-lg text-center p-6 flex flex-col" data-category="ostalo" data-brand="moza" data-kompatibilnost="pc">
-                                <img src="https://nspeed.rs/wp-content/uploads/2024/08/slika-uskoro-300x300.png" class="mx-auto h-40 w-auto mb-4" alt="MOZA Adapter za bazu R21/R16/R9/R9">
+                                <img src="https://nspeed.rs/wp-content/uploads/2024/08/slika-uskoro-300x300.png" class="mx-auto h-40 w-auto mb-4" alt="MOZA Adapter za bazu R21/R16/R9/R9" loading="lazy">
                                 <h3 class="text-lg font-bold text-white flex-grow">MOZA Adapter za bazu R21/R16/R9/R9</h3>
                                 <p class="text-gray-400">Ostalo</p>
                                 <p class="text-2xl font-bold gradient-text my-3">2.490&nbsp;rsd</p>
@@ -512,7 +638,7 @@
 
                             <!-- Artikal 11: MOZA CM2 Dashboard -->
                             <div class="product-item bg-gray-800 rounded-lg overflow-hidden shadow-lg text-center p-6 flex flex-col" data-category="ostalo" data-brand="moza" data-kompatibilnost="pc">
-                                <img src="https://nspeed.rs/wp-content/uploads/2025/04/CM2-1-300x300.webp" class="mx-auto h-40 w-auto mb-4" alt="MOZA CM2 Dashboard">
+                                <img src="https://nspeed.rs/wp-content/uploads/2025/04/CM2-1-300x300.webp" class="mx-auto h-40 w-auto mb-4" alt="MOZA CM2 Dashboard" loading="lazy">
                                 <h3 class="text-lg font-bold text-white flex-grow">MOZA CM2 Dashboard</h3>
                                 <p class="text-gray-400">Ostalo</p>
                                 <p class="text-2xl font-bold gradient-text my-3">28.490&nbsp;rsd</p>
@@ -522,7 +648,7 @@
 
                             <!-- Artikal 12: MOZA CRP2 Pedale -->
                             <div class="product-item bg-gray-800 rounded-lg overflow-hidden shadow-lg text-center p-6 flex flex-col" data-category="pedale" data-brand="moza" data-kompatibilnost="pc">
-                                <img src="https://nspeed.rs/wp-content/uploads/2025/01/2025-01-20-22-28-58-MOZA-CRP2-Load-Cell-Pedals-long-300x300.png" class="mx-auto h-40 w-auto mb-4" alt="MOZA CRP2 Pedale">
+                                <img src="https://nspeed.rs/wp-content/uploads/2025/01/2025-01-20-22-28-58-MOZA-CRP2-Load-Cell-Pedals-long-300x300.png" class="mx-auto h-40 w-auto mb-4" alt="MOZA CRP2 Pedale" loading="lazy">
                                 <h3 class="text-lg font-bold text-white flex-grow">MOZA CRP2 Pedale</h3>
                                 <p class="text-gray-400">Pedale</p>
                                 <p class="text-2xl font-bold gradient-text my-3">59.990&nbsp;rsd</p>
@@ -543,7 +669,7 @@
                 
                 <!-- Simulator 1: GT -->
                 <div class="bg-gray-800 rounded-lg shadow-xl overflow-hidden mb-12 grid md:grid-cols-2 items-center">
-                    <img src="https://placehold.co/800x600/1F2937/FFF?text=GT+Simulator" alt="GT Simulator" class="w-full h-full object-cover">
+                    <img src="https://placehold.co/800x600/1F2937/FFF?text=GT+Simulator" class="w-full h-full object-cover" loading="lazy">
                     <div class="p-8 md:p-12">
                         <h3 class="text-3xl font-bold text-white mb-4">GT Simulator</h3>
                         <p class="text-gray-400 mb-6">Savršen za ljubitelje GT trka. Osetite snagu moćnih automobila na najpoznatijim svetskim stazama.</p>
@@ -562,7 +688,7 @@
                 </div>
 
                 <!-- Simulator 2: Formula -->
-                <div class="bg-gray-800 rounded-lg shadow-xl overflow-hidden grid md:grid-cols-2 items-center">
+                <div class="bg-gray-800 rounded-lg shadow-xl overflow-hidden mb-12 grid md:grid-cols-2 items-center">
                     <div class="p-8 md:p-12 md:order-2">
                         <h3 class="text-3xl font-bold text-white mb-4">Formula Simulator</h3>
                         <p class="text-gray-400 mb-6">Doživite neverovatne G-sile i preciznost Formule 1. Naši simulatori sa F1 sedištima pružaju maksimalnu imerziju.</p>
@@ -574,11 +700,11 @@
                         <div class="text-lg font-semibold text-white mb-4">Cenovnik:</div>
                         <div class="flex space-x-4 mb-6 text-center">
                             <div class="flex-1 bg-gray-700 p-3 rounded-lg"><span class="block font-bold text-xl">30min</span> <span class="gradient-text font-bold">800 RSD</span></div>
-                            <div class="flex-1 bg-gray-700 p-3 rounded-lg"><span class="block font-bold text-xl">60min</span> <span class="gradient-text font-bold">1500 RSD</span></div>
+                            <div class="flex-1 bg-gray-700 p-3 rounded-lg"><span class="block font-bold text-xl">60min</span> <span class="gradient-text font-bold">1800 RSD</span></div>
                         </div>
                         <button class="nav-link w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-full transition duration-300" data-page="zakazivanje" data-target-tab="fiksni">Zakaži F1 Vožnju</button>
                     </div>
-                    <img src="https://placehold.co/800x600/1F2937/FFF?text=Formula+Simulator" alt="Formula Simulator" class="w-full h-full object-cover md:order-1">
+                    <img src="https://placehold.co/800x600/1F2937/FFF?text=Formula+Simulator" alt="Formula Simulator" class="w-full h-full object-cover" loading="lazy">
                 </div>
 
             </div>
@@ -695,6 +821,47 @@
     </div>
 </section>
 
+<!-- Footer -->
+<footer class="bg-gray-800 text-gray-300 py-12">
+    <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Kolona 1: Informacije o firmi -->
+        <div>
+            <h3 class="text-xl font-bold text-white mb-4">NSpeed Sim Racing</h3>
+            <p class="text-gray-400 mb-2">PIB: 114532575</p>
+            <p class="text-gray-400">Sve za sim trkanje na jednom mestu.</p>
+        </div>
+
+        <!-- Kolona 2: Navigacija -->
+        <div>
+            <h3 class="text-xl font-bold text-white mb-4">Brzi linkovi</h3>
+            <ul class="space-y-2">
+                <li><a href="#" class="nav-link hover:text-orange-500 transition duration-300" data-page="pocetna">Početna</a></li>
+                <li><a href="#" class="nav-link hover:text-orange-500 transition duration-300" data-page="novosti">Novosti</a></li>
+                <li><a href="#" class="nav-link hover:text-orange-500 transition duration-300" data-page="prodaja">Prodaja Opreme</a></li>
+                <li><a href="#" class="nav-link hover:text-orange-500 transition duration-300" data-page="zakazivanje" data-target-tab="mobilni">Iznajmljivanje</a></li>
+                <li><a href="#" class="nav-link hover:text-orange-500 transition duration-300" data-page="zakazivanje" data-target-tab="fiksni">Zakaži Termin</a></li>
+            </ul>
+        </div>
+
+        <!-- Kolona 3: Društvene mreže i kontakt -->
+        <div>
+            <h3 class="text-xl font-bold text-white mb-4">Pratite nas</h3>
+            <ul class="flex space-x-4 mb-4">
+                <li>
+                    <a href="https://www.instagram.com/nspeed.rs/" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-orange-500 transition duration-300">
+                        <i class="fab fa-instagram fa-2x"></i>
+                    </a>
+                </li>
+                <!-- Dodajte ostale društvene mreže po potrebi -->
+            </ul>
+            <p class="text-gray-400">Kontaktirajte nas za sva pitanja.</p>
+        </div>
+    </div>
+    <div class="text-center text-gray-500 text-sm mt-8">
+        &copy; 2025 NSpeed Sim Racing. Sva prava zadržana.
+    </div>
+</footer>
+
 <!-- Flatpickr JavaScript -->
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
@@ -706,8 +873,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const vremeContainer = document.getElementById('vremeContainer');
     const vremeSection = document.getElementById('vremeSection');
     const simulatorSection = document.getElementById('simulatorSection');
-    const durationSection = document.getElementById('durationSection'); // Nova sekcija za trajanje
-    const durationSelect = document.getElementById('durationSelect'); // Novi select za trajanje
+    const durationSection = document.getElementById('durationSection'); 
+    const durationSelect = document.getElementById('durationSelect'); 
     const standardQuantityInput = document.getElementById('standardQuantity');
     const proQuantityInput = document.getElementById('proQuantity');
     const standardAvailableText = document.getElementById('standardAvailableText');
@@ -722,7 +889,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let izabraniDatum = null;
     let izabranoVreme = null;
-    let izabranoTrajanje = null; // Novo: varijabla za trajanje
+    let izabranoTrajanje = null; 
     let currentAvailabilityData = {}; 
 
     // --- Nove varijable za mobilne simulatore ---
@@ -763,17 +930,17 @@ document.addEventListener('DOMContentLoaded', function () {
             // Reset quantities and selections when switching tabs
             izabraniDatum = null;
             izabranoVreme = null;
-            izabranoTrajanje = null; // Resetuj trajanje
+            izabranoTrajanje = null; 
             fixedFlatpickr.clear();
             standardQuantityInput.value = 0;
             proQuantityInput.value = 0;
-            durationSelect.value = ""; // Resetuj trajanje selekt
+            durationSelect.value = ""; 
             
             vremeSection.classList.add('hidden', 'fade-in-section');
             vremeSection.classList.remove('visible');
             simulatorSection.classList.add('hidden', 'fade-in-section');
             simulatorSection.classList.remove('visible');
-            durationSection.classList.add('hidden', 'fade-in-section'); // Sakrij sekciju za trajanje
+            durationSection.classList.add('hidden', 'fade-in-section'); 
             durationSection.classList.remove('visible');
             podaciSection.classList.add('hidden', 'fade-in-section');
             podaciSection.classList.remove('visible');
@@ -817,9 +984,8 @@ document.addEventListener('DOMContentLoaded', function () {
             activateSection(page, targetTab); 
             // Sakrij mobilni meni ako je otvoren
             const mobileMenu = document.getElementById('mobile-menu');
-            if (!mobileMenu.classList.contains('hidden')) {
-                mobileMenu.classList.add('hidden');
-            }
+            // Ukloni 'open' klasu kada se prebaci na drugu stranicu
+            mobileMenu.classList.remove('open'); 
         });
     });
 
@@ -827,7 +993,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const mobileMenuButton = document.getElementById('mobile-menu-button');
     mobileMenuButton.addEventListener('click', function() {
         const mobileMenu = document.getElementById('mobile-menu');
-        mobileMenu.classList.toggle('hidden');
+        // Toggle the 'open' class for animation
+        mobileMenu.classList.toggle('open');
     });
 
     // Header scroll effect (ostaje isti)
@@ -852,18 +1019,18 @@ document.addEventListener('DOMContentLoaded', function () {
         onClose: function(selectedDates, dateStr, instance) {
             izabraniDatum = null; 
             izabranoVreme = null; 
-            izabranoTrajanje = null; // Resetuj trajanje
+            izabranoTrajanje = null; 
             standardQuantityInput.value = 0; 
             proQuantityInput.value = 0;
-            durationSelect.value = ""; // Resetuj trajanje selekt
+            durationSelect.value = ""; 
             
-            updateQuantityInputs(); // Pozovi updateQuantityInputs da resetuje i omoguci/onemoguci inpute
+            updateQuantityInputs(); 
 
             vremeSection.classList.add('hidden', 'fade-in-section');
             vremeSection.classList.remove('visible');
             simulatorSection.classList.add('hidden', 'fade-in-section');
             simulatorSection.classList.remove('visible');
-            durationSection.classList.add('hidden', 'fade-in-section'); // Sakrij sekciju za trajanje
+            durationSection.classList.add('hidden', 'fade-in-section'); 
             durationSection.classList.remove('visible');
             podaciSection.classList.add('hidden', 'fade-in-section');
             podaciSection.classList.remove('visible');
@@ -1020,8 +1187,18 @@ document.addEventListener('DOMContentLoaded', function () {
             option60.textContent = '60 minuta';
             durationSelect.appendChild(option60);
         }
-        // Nakon ažuriranja opcija, pozovi updateQuantityInputs da prikaže simulatorSection
-        updateQuantityInputs();
+        // Pozovi updateQuantityInputs samo ako je izabrano trajanje
+        if (durationSelect.value) {
+            updateQuantityInputs();
+        } else {
+            // Ako trajanje nije izabrano, sakrij sekcije za kolicinu, podatke i pregled
+            simulatorSection.classList.add('hidden', 'fade-in-section');
+            simulatorSection.classList.remove('visible');
+            podaciSection.classList.add('hidden', 'fade-in-section'); 
+            podaciSection.classList.remove('visible');
+            pregledSection.classList.add('hidden', 'fade-in-section');
+            pregledSection.classList.remove('visible');
+        }
     }
 
     // Ažuriranje input polja za količinu simulatora i prikaz dostupnosti
@@ -1037,7 +1214,7 @@ document.addEventListener('DOMContentLoaded', function () {
         
         standardAvailableText.textContent = 'N/A';
         proAvailableText.textContent = 'N/A';
-        simulatorAvailability.textContent = 'Molimo izaberite trajanje.'; // Poruka ako nema izabranog trajanja
+        simulatorAvailability.textContent = 'Molimo izaberite trajanje.'; 
 
         // Sakrij sekcije za podatke i pregled dok se ne unese validna količina
         podaciSection.classList.add('hidden', 'fade-in-section');
