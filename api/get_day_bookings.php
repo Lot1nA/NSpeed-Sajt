@@ -75,6 +75,7 @@
             background-color: #F97316; /* orange-500 */
             color: #FFF;
             font-weight: bold;
+            box-shadow: 0 4px 8px rgba(249, 115, 22, 0.4); /* Dodatna senka za aktivni filter */
         }
 
         /* Novi stilovi za dugmad za datum i vreme */
@@ -972,10 +973,10 @@ document.addEventListener('DOMContentLoaded', function () {
             mobileMenu.classList.remove('open'); 
             // Takođe zatvori filter sidebar ako je otvoren
             const filterSidebar = document.getElementById('filter-sidebar');
-            if (filterSidebar && filterSidebar.classList.contains('open')) { // Check if filterSidebar exists before accessing classList
+            if (filterSidebar && filterSidebar.classList.contains('open')) { 
                 filterSidebar.classList.remove('open');
                 document.body.classList.remove('no-scroll');
-                document.getElementById('menu-overlay').classList.remove('visible');
+                // Nema potrebe za menu-overlay.classList.remove('visible') ovde, jer se to radi u closeSideMenu()
             }
         });
     });
@@ -986,20 +987,28 @@ document.addEventListener('DOMContentLoaded', function () {
     const menuOverlay = document.getElementById('menu-overlay');
     const closeMobileMenuButton = document.getElementById('close-mobile-menu-button');
 
-    // Ensure elements exist before adding listeners
-    if (mobileMenuButton && mobileMenu && menuOverlay) {
-        mobileMenuButton.addEventListener('click', function() {
-            mobileMenu.classList.add('open');
-            menuOverlay.classList.add('visible');
-            document.body.classList.add('no-scroll');
-        });
+    // Helper function to open a side menu
+    function openSideMenu(menuElement) {
+        menuElement.classList.add('open');
+        menuOverlay.classList.add('visible');
+        document.body.classList.add('no-scroll');
     }
 
-    if (closeMobileMenuButton && mobileMenu && menuOverlay) {
+    // Helper function to close a side menu
+    function closeSideMenu(menuElement) {
+        menuElement.classList.remove('open');
+        menuOverlay.classList.remove('visible');
+        document.body.classList.remove('no-scroll');
+    }
+
+    // Ensure elements exist before adding listeners
+    if (mobileMenuButton && mobileMenu && menuOverlay && closeMobileMenuButton) {
+        mobileMenuButton.addEventListener('click', function() {
+            openSideMenu(mobileMenu);
+        });
+
         closeMobileMenuButton.addEventListener('click', function() {
-            mobileMenu.classList.remove('open');
-            menuOverlay.classList.remove('visible');
-            document.body.classList.remove('no-scroll');
+            closeSideMenu(mobileMenu);
         });
     }
 
@@ -1008,33 +1017,25 @@ document.addEventListener('DOMContentLoaded', function () {
     const filterSidebar = document.getElementById('filter-sidebar');
     const closeFilterButton = document.getElementById('close-filter-button');
 
-    if (filterButton && filterSidebar && menuOverlay) { // Check all elements
+    if (filterButton && filterSidebar && menuOverlay && closeFilterButton) {
         filterButton.addEventListener('click', function() {
-            filterSidebar.classList.add('open');
-            menuOverlay.classList.add('visible');
-            document.body.classList.add('no-scroll');
+            openSideMenu(filterSidebar);
         });
-    }
 
-    if (closeFilterButton && filterSidebar && menuOverlay) { // Check all elements
         closeFilterButton.addEventListener('click', function() {
-            filterSidebar.classList.remove('open');
-            menuOverlay.classList.remove('visible');
-            document.body.classList.remove('no-scroll');
+            closeSideMenu(filterSidebar);
         });
     }
 
     // Close menus if overlay is clicked
-    if (menuOverlay) { // Check if menuOverlay exists
+    if (menuOverlay) {
         menuOverlay.addEventListener('click', function() {
             if (mobileMenu && mobileMenu.classList.contains('open')) {
-                mobileMenu.classList.remove('open');
+                closeSideMenu(mobileMenu);
             }
             if (filterSidebar && filterSidebar.classList.contains('open')) {
-                filterSidebar.classList.remove('open');
+                closeSideMenu(filterSidebar);
             }
-            menuOverlay.classList.remove('visible');
-            document.body.classList.remove('no-scroll');
         });
     }
 
@@ -1517,7 +1518,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 vremeSection.classList.remove('visible');
                 simulatorSection.classList.add('hidden', 'fade-in-section');
                 simulatorSection.classList.remove('visible');
-                durationSection.classList.add('hidden', 'fade-in-section'); // Sakrij sekciju za trajanje
+                durationSection.classList.add('hidden', 'fade-in-section'); 
                 durationSection.classList.remove('visible');
                 podaciSection.classList.add('hidden', 'fade-in-section');
                 podaciSection.classList.remove('visible');
