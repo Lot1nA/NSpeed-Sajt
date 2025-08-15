@@ -27,6 +27,16 @@
             background-color: #111827; /* Tailwind gray-900 */
             color: #F3F4F6; /* Tailwind gray-100 */
         }
+
+#mobile-menu.open + .menu-overlay {
+    width: calc(100% - 250px);
+}
+
+#filter-sidebar.open + .menu-overlay {
+    left: 250px;
+    width: calc(100% - 250px);
+}
+
         
         /* Stil za gradijent tekst */
         .gradient-text {
@@ -75,6 +85,7 @@
             background-color: #F97316; /* orange-500 */
             color: #FFF;
             font-weight: bold;
+            box-shadow: 0 4px 8px rgba(249, 115, 22, 0.4); /* Dodatna senka za aktivni filter */
         }
 
         /* Novi stilovi za dugmad za datum i vreme */
@@ -263,7 +274,7 @@
             top: 0;
             right: 0; /* Starts off-screen to the right */
             width: 250px; /* Width of the menu */
-            height: 100%;
+            height: 100vh; /* Use vh for full viewport height */
             background-color: #1F2937; /* gray-800 */
             box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
             transform: translateX(100%); /* Initially off-screen */
@@ -276,20 +287,19 @@
             transform: translateX(0); /* Slides into view */
         }
 
-        /* Overlay for mobile menu */
-        .mobile-menu-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            z-index: 800; /* Below menu, above content */
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
-        }
-        .mobile-menu-overlay.visible {
+        /* Overlay for mobile menu and filter sidebar */
+        .menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 800;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+        .menu-overlay.visible {
             opacity: 1;
             visibility: visible;
         }
@@ -305,7 +315,7 @@
             top: 0;
             left: 0; /* Starts off-screen to the left */
             width: 250px; /* Width of the filter menu */
-            height: 100%;
+            height: 100vh; /* Use vh for full viewport height */
             background-color: #1F2937; /* gray-800 */
             box-shadow: 5px 0 15px rgba(0, 0, 0, 0.5);
             transform: translateX(-100%); /* Initially off-screen */
@@ -376,6 +386,9 @@
             <a href="#" class="nav-link block text-center py-4 px-4 text-sm bg-orange-500 text-white font-bold" data-page="zakazivanje" data-target-tab="fiksni">Zakaži Termin</a>
         </div>
     </header>
+
+    </div>
+    <div id="menu-overlay" class="menu-overlay"></div>
 
     <main>
         <!-- Početna Stranica -->
@@ -685,26 +698,7 @@
                         </div>
                         <button class="nav-link w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-full transition duration-300" data-page="zakazivanje" data-target-tab="fiksni">Zakaži GT Vožnju</button>
                     </div>
-                </div>
-
-                <!-- Simulator 2: Formula -->
-                <div class="bg-gray-800 rounded-lg shadow-xl overflow-hidden mb-12 grid md:grid-cols-2 items-center">
-                    <div class="p-8 md:p-12 md:order-2">
-                        <h3 class="text-3xl font-bold text-white mb-4">Formula Simulator</h3>
-                        <p class="text-gray-400 mb-6">Doživite neverovatne G-sile i preciznost Formule 1. Naši simulatori sa F1 sedištima pružaju maksimalnu imerziju.</p>
-                        <ul class="text-gray-300 space-y-2 mb-6">
-                            <li><i class="fas fa-check-circle text-cyan-400 mr-2"></i><strong>Volan:</strong> Fanatec F1 Wheel</li>
-                            <li><i class="fas fa-check-circle text-cyan-400 mr-2"></i><strong>Pedale:</strong> Fanatec Clubsport V3</li>
-                            <li><i class="fas fa-check-circle text-cyan-400 mr-2"></i><strong>Monitor:</strong> 49" Ultrawide G-Sync</li>
-                        </ul>
-                        <div class="text-lg font-semibold text-white mb-4">Cenovnik:</div>
-                        <div class="flex space-x-4 mb-6 text-center">
-                            <div class="flex-1 bg-gray-700 p-3 rounded-lg"><span class="block font-bold text-xl">30min</span> <span class="gradient-text font-bold">800 RSD</span></div>
-                            <div class="flex-1 bg-gray-700 p-3 rounded-lg"><span class="block font-bold text-xl">60min</span> <span class="gradient-text font-bold">1800 RSD</span></div>
-                        </div>
-                        <button class="nav-link w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-full transition duration-300" data-page="zakazivanje" data-target-tab="fiksni">Zakaži F1 Vožnju</button>
-                    </div>
-                    <img src="https://placehold.co/800x600/1F2937/FFF?text=Formula+Simulator" alt="Formula Simulator" class="w-full h-full object-cover" loading="lazy">
+                    <img src="https://placehold.co/800x600/1F2937/FFF?text=Formula+Simulator" class="w-full h-full object-cover" loading="lazy">
                 </div>
 
             </div>
@@ -986,16 +980,93 @@ document.addEventListener('DOMContentLoaded', function () {
             const mobileMenu = document.getElementById('mobile-menu');
             // Ukloni 'open' klasu kada se prebaci na drugu stranicu
             mobileMenu.classList.remove('open'); 
+            // Takođe zatvori filter sidebar ako je otvoren
+            const filterSidebar = document.getElementById('filter-sidebar');
+            if (filterSidebar && filterSidebar.classList.contains('open')) { 
+                filterSidebar.classList.remove('open');
+                document.body.classList.remove('no-scroll');
+                // Nema potrebe za menu-overlay.classList.remove('visible') ovde, jer se to radi u closeSideMenu()
+            }
         });
     });
 
-    // Mobile menu toggle (ostaje isti)
+    // Mobile menu toggle
     const mobileMenuButton = document.getElementById('mobile-menu-button');
-    mobileMenuButton.addEventListener('click', function() {
-        const mobileMenu = document.getElementById('mobile-menu');
-        // Toggle the 'open' class for animation
-        mobileMenu.classList.toggle('open');
-    });
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuOverlay = document.getElementById('menu-overlay');
+    const closeMobileMenuButton = document.getElementById('close-mobile-menu-button');
+
+    // Helper function to open a side menu
+    function openSideMenu(menuElement) {
+        if (menuElement) { // Ensure menuElement exists
+            menuElement.classList.add('open');
+            if (menuOverlay) { // Ensure overlay exists
+                menuOverlay.classList.add('visible');
+            }
+            document.body.classList.add('no-scroll');
+        } else {
+            console.error("Attempted to open a null menu element.");
+        }
+    }
+
+    // Helper function to close a side menu
+    function closeSideMenu(menuElement) {
+        if (menuElement) { // Ensure menuElement exists
+            menuElement.classList.remove('open');
+            if (menuOverlay) { // Ensure overlay exists
+                menuOverlay.classList.remove('visible');
+            }
+            document.body.classList.remove('no-scroll');
+        } else {
+            console.error("Attempted to close a null menu element.");
+        }
+    }
+
+    // Ensure elements exist before adding listeners
+    if (mobileMenuButton) { // Check for existence
+        mobileMenuButton.addEventListener('click', function() {
+            openSideMenu(mobileMenu);
+        });
+    }
+
+    if (closeMobileMenuButton) { // Check for existence
+        closeMobileMenuButton.addEventListener('click', function() {
+            closeSideMenu(mobileMenu);
+        });
+    }
+
+    // Filter menu toggle
+    const filterButton = document.getElementById('filter-button');
+    const filterSidebar = document.getElementById('filter-sidebar');
+    const closeFilterButton = document.getElementById('close-filter-button');
+
+    if (filterButton) { // Check for existence
+        filterButton.addEventListener('click', function() {
+            openSideMenu(filterSidebar);
+        });
+    }
+
+    if (closeFilterButton) { // Check for existence
+        closeFilterButton.addEventListener('click', function() {
+            closeSideMenu(filterSidebar);
+        });
+    }
+
+    // Close menus if overlay is clicked
+    if (menuOverlay) { // Check for existence
+        menuOverlay.addEventListener('click', function(event) {
+            // Only close if the click target is the overlay itself, not a child of a menu
+            if (event.target === menuOverlay) {
+                if (mobileMenu && mobileMenu.classList.contains('open')) {
+                    closeSideMenu(mobileMenu);
+                }
+                if (filterSidebar && filterSidebar.classList.contains('open')) {
+                    closeSideMenu(filterSidebar);
+                }
+            }
+        });
+    }
+
 
     // Header scroll effect (ostaje isti)
     window.addEventListener('scroll', function() {
@@ -1082,8 +1153,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 let proAvailable = 0;
 
                 if (currentAvailabilityData[timeStr]) {
-                    standardAvailable = currentAvailabilityData[timeStr].standard_total - currentAvailabilityData[timeStr].standard_booked;
-                    proAvailable = currentAvailabilityData[timeStr].pro_total - currentAvailabilityData[timeStr].pro_booked;
+                    standardAvailable = currentAvailabilityData[timeToUse]?.standard_total - currentAvailabilityData[timeToUse]?.standard_booked || 0;
+                    proAvailable = currentAvailabilityData[timeToUse].pro_total - currentAvailabilityData[timeToUse]?.pro_booked || 0;
                 } else {
                     standardAvailable = 4; 
                     proAvailable = 2; 
@@ -1475,7 +1546,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 vremeSection.classList.remove('visible');
                 simulatorSection.classList.add('hidden', 'fade-in-section');
                 simulatorSection.classList.remove('visible');
-                durationSection.classList.add('hidden', 'fade-in-section'); // Sakrij sekciju za trajanje
+                durationSection.classList.add('hidden', 'fade-in-section'); 
                 durationSection.classList.remove('visible');
                 podaciSection.classList.add('hidden', 'fade-in-section');
                 podaciSection.classList.remove('visible');
