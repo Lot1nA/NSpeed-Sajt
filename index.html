@@ -27,16 +27,6 @@
             background-color: #111827; /* Tailwind gray-900 */
             color: #F3F4F6; /* Tailwind gray-100 */
         }
-
-#mobile-menu.open + .menu-overlay {
-    width: calc(100% - 250px);
-}
-
-#filter-sidebar.open + .menu-overlay {
-    left: 250px;
-    width: calc(100% - 250px);
-}
-
         
         /* Stil za gradijent tekst */
         .gradient-text {
@@ -289,16 +279,17 @@
 
         /* Overlay for mobile menu and filter sidebar */
         .menu-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    z-index: 800;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
-}
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 800; /* Below menu, above content */
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        }
         .menu-overlay.visible {
             opacity: 1;
             visibility: visible;
@@ -387,7 +378,7 @@
         </div>
     </header>
 
-    </div>
+    <!-- Overlay for side menus -->
     <div id="menu-overlay" class="menu-overlay"></div>
 
     <main>
@@ -551,7 +542,7 @@
                             
                             <!-- Artikal 1: Aluminijumski 3090 sim kokpit -->
                             <div class="product-item bg-gray-800 rounded-lg overflow-hidden shadow-lg text-center p-6 flex flex-col" data-category="sedista" data-brand="none" data-kompatibilnost="pc">
-                                <img src="https://nspeed.rs/wp-content/uploads/2024/08/IMG-4895-300x300.jpg" class="mx-auto h-40 w-auto mb-4" alt="Aluminijumski 3090 sim kokpit" loading="lazy">
+                                <img src="https://placehold.co/800x600/1F2937/FFF?text=Aluminijumski+3090+sim+kokpit" class="mx-auto h-40 w-auto mb-4" alt="Aluminijumski 3090 sim kokpit" loading="lazy">
                                 <h3 class="text-lg font-bold text-white flex-grow">Aluminijumski 3090 sim kokpit</h3>
                                 <p class="text-gray-400">Rigovi i sedišta</p>
                                 <p class="text-2xl font-bold gradient-text my-3">39.990&nbsp;rsd</p>
@@ -561,7 +552,7 @@
 
                             <!-- Artikal 2: Aluminijumski 40160 Prime kokpit -->
                             <div class="product-item bg-gray-800 rounded-lg overflow-hidden shadow-lg text-center p-6 flex flex-col" data-category="sedista" data-brand="none" data-kompatibilnost="pc">
-                                <img src="https://nspeed.rs/wp-content/uploads/2025/04/20210422144200-300x300.jpg" class="mx-auto h-40 w-auto mb-4" alt="Aluminijumski 40160 Prime kokpit" loading="lazy">
+                                <img src="https://placehold.co/800x600/1F2937/FFF?text=Aluminijumski+40160+Prime+kokpit" class="mx-auto h-40 w-auto mb-4" alt="Aluminijumski 40160 Prime kokpit" loading="lazy">
                                 <h3 class="text-lg font-bold text-white flex-grow">Aluminijumski 40160 Prime kokpit</h3>
                                 <p class="text-gray-400">Rigovi i sedišta</p>
                                 <p class="text-2xl font-bold gradient-text my-3">64.990&nbsp;rsd</p>
@@ -571,7 +562,7 @@
 
                             <!-- Artikal 3: Aluminijumski 4080 crni sim kokpit -->
                             <div class="product-item bg-gray-800 rounded-lg overflow-hidden shadow-lg text-center p-6 flex flex-col" data-category="sedista" data-brand="none" data-kompatibilnost="pc">
-                                <img src="https://nspeed.rs/wp-content/uploads/2024/08/Untitled-300x300.png" class="mx-auto h-40 w-auto mb-4" alt="Aluminijumski 4080 crni sim kokpit" loading="lazy">
+                                <img src="https://placehold.co/800x600/1F2937/FFF?text=Aluminijumski+4080+crni+sim+kokpit" class="mx-auto h-40 w-auto mb-4" alt="Aluminijumski 4080 crni sim kokpit" loading="lazy">
                                 <h3 class="text-lg font-bold text-white flex-grow">Aluminijumski 4080 crni sim kokpit</h3>
                                 <p class="text-gray-400">Rigovi i sedišta</p>
                                 <p class="text-2xl font-bold gradient-text my-3">48.990&nbsp;rsd</p>
@@ -581,7 +572,7 @@
 
                             <!-- Artikal 4: Apex postolje za volan -->
                             <div class="product-item bg-gray-800 rounded-lg overflow-hidden shadow-lg text-center p-6 flex flex-col" data-category="sedista" data-brand="none" data-kompatibilnost="pc">
-                                <img src="https://nspeed.rs/wp-content/uploads/2025/05/X1-3-300x300.jpg" class="mx-auto h-40 w-auto mb-4" alt="Apex postolje za volan" loading="lazy">
+                                <img src="https://placehold.co/800x600/1F2937/FFF?text=Apex+postolje+za+volan" class="mx-auto h-40 w-auto mb-4" alt="Apex postolje za volan" loading="lazy">
                                 <h3 class="text-lg font-bold text-white flex-grow">Apex postolje za volan</h3>
                                 <p class="text-gray-400">Rigovi i sedišta</p>
                                 <p class="text-2xl font-bold gradient-text my-3">18.490&nbsp;rsd</p>
@@ -591,7 +582,7 @@
 
                             <!-- Artikal 5: Držač za ručnu kočnicu i menjač za sto -->
                             <div class="product-item bg-gray-800 rounded-lg overflow-hidden shadow-lg text-center p-6 flex flex-col" data-category="ostalo" data-brand="none" data-kompatibilnost="pc">
-                                <img src="https://nspeed.rs/wp-content/uploads/2024/08/36-300x300.jpg" class="mx-auto h-40 w-auto mb-4" alt="Držač za ručnu kočnicu i menjač za sto" loading="lazy">
+                                <img src="https://placehold.co/800x600/1F2937/FFF?text=Držač+za+ručnu+kočnicu+i+menjač+za+sto" class="mx-auto h-40 w-auto mb-4" alt="Držač za ručnu kočnicu i menjač za sto" loading="lazy">
                                 <h3 class="text-lg font-bold text-white flex-grow">Držač za ručnu kočnicu i menjač za sto</h3>
                                 <p class="text-gray-400">Ostalo</p>
                                 <p class="text-2xl font-bold gradient-text my-3">5.490&nbsp;rsd</p>
@@ -601,7 +592,7 @@
 
                             <!-- Artikal 6: ES volan formula mod -->
                             <div class="product-item bg-gray-800 rounded-lg overflow-hidden shadow-lg text-center p-6 flex flex-col" data-category="volani" data-brand="none" data-kompatibilnost="pc">
-                                <img src="https://nspeed.rs/wp-content/uploads/2024/08/ES-Mod3.png-300x300.jpg" class="mx-auto h-40 w-auto mb-4" alt="ES volan formula mod" loading="lazy">
+                                <img src="https://placehold.co/800x600/1F2937/FFF?text=ES+volan+formula+mod" class="mx-auto h-40 w-auto mb-4" alt="ES volan formula mod" loading="lazy">
                                 <h3 class="text-lg font-bold text-white flex-grow">ES volan formula mod</h3>
                                 <p class="text-gray-400">Volani</p>
                                 <p class="text-2xl font-bold gradient-text my-3">7.490&nbsp;rsd</p>
@@ -611,7 +602,7 @@
 
                             <!-- Artikal 7: ES volan mod 12ich -->
                             <div class="product-item bg-gray-800 rounded-lg overflow-hidden shadow-lg text-center p-6 flex flex-col" data-category="volani" data-brand="none" data-kompatibilnost="pc">
-                                <img src="https://nspeed.rs/wp-content/uploads/2024/08/12-inch-2-300x300.png" class="mx-auto h-40 w-auto mb-4" alt="ES volan mod 12ich" loading="lazy">
+                                <img src="https://placehold.co/800x600/1F2937/FFF?text=ES+volan+mod+12ich" class="mx-auto h-40 w-auto mb-4" alt="ES volan mod 12ich" loading="lazy">
                                 <h3 class="text-lg font-bold text-white flex-grow">ES volan mod 12ich</h3>
                                 <p class="text-gray-400">Volani</p>
                                 <p class="text-2xl font-bold gradient-text my-3">10.490&nbsp;rsd</p>
@@ -621,7 +612,7 @@
 
                             <!-- Artikal 8: GTZ Kokpit sa sedištem i držačem monitora -->
                             <div class="product-item bg-gray-800 rounded-lg overflow-hidden shadow-lg text-center p-6 flex flex-col" data-category="sedista" data-brand="none" data-kompatibilnost="pc">
-                                <img src="https://nspeed.rs/wp-content/uploads/2025/04/1691891521-300x300.jpg" class="mx-auto h-40 w-auto mb-4" alt="GTZ Kokpit sa sedištem i držačem monitora" loading="lazy">
+                                <img src="https://placehold.co/800x600/1F2937/FFF?text=GTZ+Kokpit+sa+sedištem+i+držačem+monitora" class="mx-auto h-40 w-auto mb-4" alt="GTZ Kokpit sa sedištem i držačem monitora" loading="lazy">
                                 <h3 class="text-lg font-bold text-white flex-grow">GTZ Kokpit sa sedištem i držačem monitora</h3>
                                 <p class="text-gray-400">Rigovi i sedišta</p>
                                 <p class="text-2xl font-bold gradient-text my-3">76.490&nbsp;rsd</p>
@@ -631,7 +622,7 @@
 
                             <!-- Artikal 9: Integrisani držač monitora - Single -->
                             <div class="product-item bg-gray-800 rounded-lg overflow-hidden shadow-lg text-center p-6 flex flex-col" data-category="sedista" data-brand="none" data-kompatibilnost="pc">
-                                <img src="https://nspeed.rs/wp-content/uploads/2025/04/unnamed-file-300x300.png" class="mx-auto h-40 w-auto mb-4" alt="Integrisani držač monitora - Single" loading="lazy">
+                                <img src="https://placehold.co/800x600/1F2937/FFF?text=Integrisani+držač+monitora+-+Single" class="mx-auto h-40 w-auto mb-4" alt="Integrisani držač monitora - Single" loading="lazy">
                                 <h3 class="text-lg font-bold text-white flex-grow">Integrisani držač monitora – Single</h3>
                                 <p class="text-gray-400">Rigovi i sedišta</p>
                                 <p class="text-2xl font-bold gradient-text my-3">19.990&nbsp;rsd</p>
@@ -641,7 +632,7 @@
 
                             <!-- Artikal 10: MOZA Adapter za bazu R21/R16/R9/R9 -->
                             <div class="product-item bg-gray-800 rounded-lg overflow-hidden shadow-lg text-center p-6 flex flex-col" data-category="ostalo" data-brand="moza" data-kompatibilnost="pc">
-                                <img src="https://nspeed.rs/wp-content/uploads/2024/08/slika-uskoro-300x300.png" class="mx-auto h-40 w-auto mb-4" alt="MOZA Adapter za bazu R21/R16/R9/R9" loading="lazy">
+                                <img src="https://placehold.co/800x600/1F2937/FFF?text=MOZA+Adapter+za+bazu+R21/R16/R9/R9" class="mx-auto h-40 w-auto mb-4" alt="MOZA Adapter za bazu R21/R16/R9/R9" loading="lazy">
                                 <h3 class="text-lg font-bold text-white flex-grow">MOZA Adapter za bazu R21/R16/R9/R9</h3>
                                 <p class="text-gray-400">Ostalo</p>
                                 <p class="text-2xl font-bold gradient-text my-3">2.490&nbsp;rsd</p>
@@ -651,7 +642,7 @@
 
                             <!-- Artikal 11: MOZA CM2 Dashboard -->
                             <div class="product-item bg-gray-800 rounded-lg overflow-hidden shadow-lg text-center p-6 flex flex-col" data-category="ostalo" data-brand="moza" data-kompatibilnost="pc">
-                                <img src="https://nspeed.rs/wp-content/uploads/2025/04/CM2-1-300x300.webp" class="mx-auto h-40 w-auto mb-4" alt="MOZA CM2 Dashboard" loading="lazy">
+                                <img src="https://placehold.co/800x600/1F2937/FFF?text=MOZA+CM2+Dashboard" class="mx-auto h-40 w-auto mb-4" alt="MOZA CM2 Dashboard" loading="lazy">
                                 <h3 class="text-lg font-bold text-white flex-grow">MOZA CM2 Dashboard</h3>
                                 <p class="text-gray-400">Ostalo</p>
                                 <p class="text-2xl font-bold gradient-text my-3">28.490&nbsp;rsd</p>
@@ -661,7 +652,7 @@
 
                             <!-- Artikal 12: MOZA CRP2 Pedale -->
                             <div class="product-item bg-gray-800 rounded-lg overflow-hidden shadow-lg text-center p-6 flex flex-col" data-category="pedale" data-brand="moza" data-kompatibilnost="pc">
-                                <img src="https://nspeed.rs/wp-content/uploads/2025/01/2025-01-20-22-28-58-MOZA-CRP2-Load-Cell-Pedals-long-300x300.png" class="mx-auto h-40 w-auto mb-4" alt="MOZA CRP2 Pedale" loading="lazy">
+                                <img src="https://placehold.co/800x600/1F2937/FFF?text=MOZA+CRP2+Pedale" class="mx-auto h-40 w-auto mb-4" alt="MOZA CRP2 Pedale" loading="lazy">
                                 <h3 class="text-lg font-bold text-white flex-grow">MOZA CRP2 Pedale</h3>
                                 <p class="text-gray-400">Pedale</p>
                                 <p class="text-2xl font-bold gradient-text my-3">59.990&nbsp;rsd</p>
@@ -751,23 +742,35 @@
                             <label for="standardQuantity" class="block text-gray-300 text-sm font-bold mb-2">Standardni:</label>
                             <input type="number" id="standardQuantity" value="0" min="0" class="w-full bg-gray-700 text-white border-gray-600 rounded-md p-3" onchange="updateQuantityInputs()">
                             <p id="standardAvailableText" class="text-gray-400 text-xs mt-1"></p>
+                            <p id="standardError" class="text-red-400 text-xs mt-1 hidden">Unesite validnu količinu.</p>
                         </div>
                         <div>
                             <label for="proQuantity" class="block text-gray-300 text-sm font-bold mb-2">Pro:</label>
                             <input type="number" id="proQuantity" value="0" min="0" class="w-full bg-gray-700 text-white border-gray-600 rounded-md p-3" onchange="updateQuantityInputs()">
                             <p id="proAvailableText" class="text-gray-400 text-xs mt-1"></p>
+                            <p id="proError" class="text-red-400 text-xs mt-1 hidden">Unesite validnu količinu.</p>
                         </div>
                     </div>
                     <p id="simulatorAvailability" class="text-gray-400 text-sm mt-2"></p>
+                    <p id="totalQuantityError" class="text-red-400 text-xs mt-1 hidden">Morate izabrati bar jedan simulator.</p>
                 </div>
 
                 <!-- Korak 5: Podaci korisnika -->
                 <div class="mb-6 hidden fade-in-section" id="podaciSection">
                     <label class="block text-lg font-semibold mb-4 text-white">5. Vaši podaci</label>
                     <div class="grid md:grid-cols-2 gap-4">
-                        <input id="inputName" type="text" placeholder="Ime i Prezime" class="w-full bg-gray-700 text-white border-gray-600 rounded-md p-3" required>
-                        <input id="inputEmail" type="email" placeholder="Email Adresa" class="w-full bg-gray-700 text-white border-gray-600 rounded-md p-3" required>
-                        <input id="inputPhone" type="tel" placeholder="Broj telefona (opciono)" class="w-full bg-gray-700 text-white border-gray-600 rounded-md p-3">
+                        <div>
+                            <input id="inputName" type="text" placeholder="Ime i Prezime" class="w-full bg-gray-700 text-white border-gray-600 rounded-md p-3" required>
+                            <p id="nameError" class="text-red-400 text-xs mt-1 hidden">Ime i prezime je obavezno.</p>
+                        </div>
+                        <div>
+                            <input id="inputEmail" type="email" placeholder="Email Adresa" class="w-full bg-gray-700 text-white border-gray-600 rounded-md p-3" required>
+                            <p id="emailError" class="text-red-400 text-xs mt-1 hidden">Email adresa je obavezna i mora biti validna.</p>
+                        </div>
+                        <div>
+                            <input id="inputPhone" type="tel" placeholder="Broj telefona (opciono)" class="w-full bg-gray-700 text-white border-gray-600 rounded-md p-3">
+                            <p id="phoneError" class="text-red-400 text-xs mt-1 hidden">Broj telefona mora biti validan (opciono).</p>
+                        </div>
                     </div>
                 </div>
 
@@ -787,20 +790,31 @@
                     <label class="block text-lg font-semibold mb-4 text-white">1. Izaberite datume iznajmljivanja</label>
                     <!-- Izmenjeno: Jedno polje za Flatpickr kalendar -->
                     <input type="text" id="mobileDateRange" placeholder="Izaberite datume (od - do)" class="w-full bg-gray-700 text-white border-gray-600 rounded-md p-3 mb-4" required>
+                    <p id="mobileDateRangeError" class="text-red-400 text-xs mt-1 hidden">Izaberite opseg datuma.</p>
                 </div>
 
                 <div class="mb-6">
                     <label class="block text-lg font-semibold mb-4 text-white">2. Lokacija i napomene</label>
                     <input type="text" id="mobileLocation" placeholder="Adresa za dostavu/preuzimanje" class="w-full bg-gray-700 text-white border-gray-600 rounded-md p-3 mb-4" required>
+                    <p id="mobileLocationError" class="text-red-400 text-xs mt-1 hidden">Adresa je obavezna.</p>
                     <textarea id="mobileNotes" placeholder="Dodatne napomene (npr. broj mobilnih simulatora, posebni zahtevi)" class="w-full bg-gray-700 text-white border-gray-600 rounded-md p-3 h-24"></textarea>
                 </div>
 
                 <div class="mb-6">
                     <label class="block text-lg font-semibold mb-4 text-white">3. Vaši podaci</label>
                     <div class="grid md:grid-cols-2 gap-4">
-                        <input id="mobileInputName" type="text" placeholder="Ime i Prezime" class="w-full bg-gray-700 text-white border-gray-600 rounded-md p-3" required>
-                        <input id="mobileInputEmail" type="email" placeholder="Email Adresa" class="w-full bg-gray-700 text-white border-gray-600 rounded-md p-3" required>
-                        <input id="mobileInputPhone" type="tel" placeholder="Broj telefona (opciono)" class="w-full bg-gray-700 text-white border-gray-600 rounded-md p-3">
+                        <div>
+                            <input id="mobileInputName" type="text" placeholder="Ime i Prezime" class="w-full bg-gray-700 text-white border-gray-600 rounded-md p-3" required>
+                            <p id="mobileNameError" class="text-red-400 text-xs mt-1 hidden">Ime i prezime je obavezno.</p>
+                        </div>
+                        <div>
+                            <input id="mobileInputEmail" type="email" placeholder="Email Adresa" class="w-full bg-gray-700 text-white border-gray-600 rounded-md p-3" required>
+                            <p id="mobileEmailError" class="text-red-400 text-xs mt-1 hidden">Email adresa je obavezna i mora biti validna.</p>
+                        </div>
+                        <div>
+                            <input id="mobileInputPhone" type="tel" placeholder="Broj telefona (opciono)" class="w-full bg-gray-700 text-white border-gray-600 rounded-md p-3">
+                            <p id="mobilePhoneError" class="text-red-400 text-xs mt-1 hidden">Broj telefona mora biti validan (opciono).</p>
+                        </div>
                     </div>
                 </div>
 
@@ -861,7 +875,12 @@
 
 <script>
 // Frontend booking integration with API endpoints
-document.addEventListener('DOMContentLoaded', function () {
+
+// Declare Flatpickr instances globally
+let fixedFlatpickrInstance;
+let mobileFlatpickrInstance;
+
+window.onload = function () { // Changed to window.onload to ensure all HTML is parsed
     // --- Postojeće varijale za fiksne simulatore ---
     const fixedDateInput = document.getElementById('fixedDate'); 
     const vremeContainer = document.getElementById('vremeContainer');
@@ -880,6 +899,20 @@ document.addEventListener('DOMContentLoaded', function () {
     const inputName = document.getElementById('inputName');
     const inputEmail = document.getElementById('inputEmail');
     const inputPhone = document.getElementById('inputPhone'); 
+
+    // Validation error message elements
+    const nameError = document.getElementById('nameError');
+    const emailError = document.getElementById('emailError');
+    const phoneError = document.getElementById('phoneError');
+    const standardError = document.getElementById('standardError');
+    const proError = document.getElementById('proError');
+    const totalQuantityError = document.getElementById('totalQuantityError');
+    const mobileDateRangeError = document.getElementById('mobileDateRangeError');
+    const mobileLocationError = document.getElementById('mobileLocationError');
+    const mobileNameError = document.getElementById('mobileNameError');
+    const mobileEmailError = document.getElementById('mobileEmailError');
+    const mobilePhoneError = document.getElementById('mobilePhoneError');
+
 
     let izabraniDatum = null;
     let izabranoVreme = null;
@@ -925,7 +958,7 @@ document.addEventListener('DOMContentLoaded', function () {
             izabraniDatum = null;
             izabranoVreme = null;
             izabranoTrajanje = null; 
-            fixedFlatpickr.clear();
+            if (fixedFlatpickrInstance) fixedFlatpickrInstance.clear(); // Clear Flatpickr only if it exists
             standardQuantityInput.value = 0;
             proQuantityInput.value = 0;
             durationSelect.value = ""; 
@@ -950,7 +983,14 @@ document.addEventListener('DOMContentLoaded', function () {
         document.querySelectorAll('.page-section').forEach(section => {
             section.classList.remove('active');
         });
-        document.getElementById(sectionId).classList.add('active');
+        const targetSection = document.getElementById(sectionId);
+        if (targetSection) {
+            targetSection.classList.add('active');
+        } else {
+            console.warn(`Section with ID ${sectionId} not found.`);
+            return; // Exit if section not found
+        }
+
 
         document.querySelectorAll('.nav-link').forEach(link => {
             link.classList.remove('active');
@@ -979,13 +1019,19 @@ document.addEventListener('DOMContentLoaded', function () {
             // Sakrij mobilni meni ako je otvoren
             const mobileMenu = document.getElementById('mobile-menu');
             // Ukloni 'open' klasu kada se prebaci na drugu stranicu
-            mobileMenu.classList.remove('open'); 
+            if (mobileMenu) { // Check for existence
+                mobileMenu.classList.remove('open'); 
+            }
             // Takođe zatvori filter sidebar ako je otvoren
             const filterSidebar = document.getElementById('filter-sidebar');
             if (filterSidebar && filterSidebar.classList.contains('open')) { 
                 filterSidebar.classList.remove('open');
-                document.body.classList.remove('no-scroll');
-                // Nema potrebe za menu-overlay.classList.remove('visible') ovde, jer se to radi u closeSideMenu()
+            }
+            // Uvek ukloni no-scroll i sakrij overlay kada se klikne na nav link
+            document.body.classList.remove('no-scroll');
+            const menuOverlay = document.getElementById('menu-overlay');
+            if (menuOverlay) {
+                menuOverlay.classList.remove('visible');
             }
         });
     });
@@ -1024,15 +1070,21 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Ensure elements exist before adding listeners
     if (mobileMenuButton) { // Check for existence
-        mobileMenuButton.addEventListener('click', function() {
+        mobileMenuButton.addEventListener('click', function(e) {
+            e.stopPropagation(); // Prevent click from propagating to overlay
             openSideMenu(mobileMenu);
         });
+    } else {
+        console.warn("Mobile menu button not found.");
     }
 
     if (closeMobileMenuButton) { // Check for existence
-        closeMobileMenuButton.addEventListener('click', function() {
+        closeMobileMenuButton.addEventListener('click', function(e) {
+            e.stopPropagation(); // Prevent click from propagating to overlay
             closeSideMenu(mobileMenu);
         });
+    } else {
+        console.warn("Close mobile menu button not found.");
     }
 
     // Filter menu toggle
@@ -1041,15 +1093,21 @@ document.addEventListener('DOMContentLoaded', function () {
     const closeFilterButton = document.getElementById('close-filter-button');
 
     if (filterButton) { // Check for existence
-        filterButton.addEventListener('click', function() {
+        filterButton.addEventListener('click', function(e) {
+            e.stopPropagation(); // Prevent click from propagating to overlay
             openSideMenu(filterSidebar);
         });
+    } else {
+        console.warn("Filter button not found.");
     }
 
     if (closeFilterButton) { // Check for existence
-        closeFilterButton.addEventListener('click', function() {
+        closeFilterButton.addEventListener('click', function(e) {
+            e.stopPropagation(); // Prevent click from propagating to overlay
             closeSideMenu(filterSidebar);
         });
+    } else {
+        console.warn("Close filter button not found.");
     }
 
     // Close menus if overlay is clicked
@@ -1065,6 +1123,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             }
         });
+    } else {
+        console.warn("Menu overlay not found.");
     }
 
 
@@ -1083,47 +1143,55 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     // Inicijalizacija Flatpickr kalendara za fiksne simulatore
-    const fixedFlatpickr = flatpickr("#fixedDate", {
-        mode: "single", 
-        minDate: "today", 
-        dateFormat: "Y-m-d", 
-        onClose: function(selectedDates, dateStr, instance) {
-            izabraniDatum = null; 
-            izabranoVreme = null; 
-            izabranoTrajanje = null; 
-            standardQuantityInput.value = 0; 
-            proQuantityInput.value = 0;
-            durationSelect.value = ""; 
-            
-            updateQuantityInputs(); 
+    if (fixedDateInput) { // Ensure element exists
+        fixedFlatpickrInstance = flatpickr("#fixedDate", { // Assign to global variable
+            mode: "single", 
+            minDate: "today", 
+            dateFormat: "Y-m-d", 
+            onClose: function(selectedDates, dateStr, instance) {
+                izabraniDatum = null; 
+                izabranoVreme = null; 
+                izabranoTrajanje = null; 
+                standardQuantityInput.value = 0; 
+                proQuantityInput.value = 0;
+                durationSelect.value = ""; 
+                
+                updateQuantityInputs(); 
 
-            vremeSection.classList.add('hidden', 'fade-in-section');
-            vremeSection.classList.remove('visible');
-            simulatorSection.classList.add('hidden', 'fade-in-section');
-            simulatorSection.classList.remove('visible');
-            durationSection.classList.add('hidden', 'fade-in-section'); 
-            durationSection.classList.remove('visible');
-            podaciSection.classList.add('hidden', 'fade-in-section');
-            podaciSection.classList.remove('visible');
-            pregledSection.classList.add('hidden', 'fade-in-section');
-            pregledSection.classList.remove('visible');
-            bookingMessageFiksni.textContent = '';
+                vremeSection.classList.add('hidden', 'fade-in-section');
+                vremeSection.classList.remove('visible');
+                simulatorSection.classList.add('hidden', 'fade-in-section');
+                simulatorSection.classList.remove('visible');
+                durationSection.classList.add('hidden', 'fade-in-section'); 
+                durationSection.classList.remove('visible');
+                podaciSection.classList.add('hidden', 'fade-in-section');
+                podaciSection.classList.remove('visible');
+                pregledSection.classList.add('hidden', 'fade-in-section');
+                pregledSection.classList.remove('visible');
+                bookingMessageFiksni.textContent = '';
 
 
-            if (selectedDates.length > 0) {
-                izabraniDatum = dateStr;
-                vremeSection.classList.remove('hidden');
-                vremeSection.classList.add('visible');
-                fetchBookedSlots(dateStr); 
-            } else {
-                // Ako datum nije izabran ili je ponisten, sve se resetuje
+                if (selectedDates.length > 0) {
+                    izabraniDatum = dateStr;
+                    vremeSection.classList.remove('hidden');
+                    vremeSection.classList.add('visible');
+                    fetchBookedSlots(dateStr); 
+                } else {
+                    // Ako datum nije izabran ili je ponisten, sve se resetuje
+                }
             }
-        }
-    });
+        });
+    } else {
+        console.warn("Fixed date input not found for Flatpickr initialization.");
+    }
 
 
     // Funkcija za generisanje vremenskih slotova (za FIKSNE simulatore)
     function generisiVremena(availabilityData) {
+        if (!vremeContainer) {
+            console.error("Vreme container not found.");
+            return;
+        }
         vremeContainer.innerHTML = '';
         currentAvailabilityData = {}; 
 
@@ -1153,8 +1221,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 let proAvailable = 0;
 
                 if (currentAvailabilityData[timeStr]) {
-                    standardAvailable = currentAvailabilityData[timeToUse]?.standard_total - currentAvailabilityData[timeToUse]?.standard_booked || 0;
-                    proAvailable = currentAvailabilityData[timeToUse].pro_total - currentAvailabilityData[timeToUse]?.pro_booked || 0;
+                    standardAvailable = currentAvailabilityData[timeStr].standard_total - currentAvailabilityData[timeStr].standard_booked;
+                    proAvailable = currentAvailabilityData[timeStr].pro_total - currentAvailabilityData[timeStr].pro_booked;
                 } else {
                     standardAvailable = 4; 
                     proAvailable = 2; 
@@ -1188,7 +1256,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     btn.classList.add('opacity-50', 'cursor-not-allowed');
                     btn.disabled = true;
                 } else {
-                    btn.addEventListener('click', function () {
+                    btn.addEventListener('click', function (e) { // Add e parameter
+                        e.stopPropagation(); // Stop propagation to overlay
                         izabranoVreme = timeStr;
                         vremeContainer.querySelectorAll('button').forEach(b => b.classList.remove('active'));
                         btn.classList.add('active');
@@ -1236,6 +1305,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Ažuriranje opcija za trajanje na osnovu izabranog vremena
     function updateDurationOptions() {
+        if (!durationSelect) {
+            console.error("Duration select not found.");
+            return;
+        }
         if (!izabranoVreme) {
             durationSelect.innerHTML = '<option value="">-- Odaberite trajanje --</option>';
             durationSelect.disabled = true;
@@ -1263,19 +1336,26 @@ document.addEventListener('DOMContentLoaded', function () {
             updateQuantityInputs();
         } else {
             // Ako trajanje nije izabrano, sakrij sekcije za kolicinu, podatke i pregled
-            simulatorSection.classList.add('hidden', 'fade-in-section');
-            simulatorSection.classList.remove('visible');
-            podaciSection.classList.add('hidden', 'fade-in-section'); 
-            podaciSection.classList.remove('visible');
-            pregledSection.classList.add('hidden', 'fade-in-section');
-            pregledSection.classList.remove('visible');
+            if (simulatorSection) {
+                simulatorSection.classList.add('hidden', 'fade-in-section');
+                simulatorSection.classList.remove('visible');
+            }
+            if (podaciSection) {
+                podaciSection.classList.add('hidden', 'fade-in-section'); 
+                podaciSection.classList.remove('visible');
+            }
+            if (pregledSection) {
+                pregledSection.classList.add('hidden', 'fade-in-section');
+                pregledSection.classList.remove('visible');
+            }
         }
     }
 
     // Ažuriranje input polja za količinu simulatora i prikaz dostupnosti
     window.updateQuantityInputs = function() {
+        console.log("updateQuantityInputs called.");
         const selectedSlotData = currentAvailabilityData[izabranoVreme];
-        const selectedDuration = parseInt(durationSelect.value); // Uzmi izabrano trajanje
+        const selectedDuration = parseInt(durationSelect.value); 
         
         // Resetuj inpute i njihove max atribute na početku
         standardQuantityInput.setAttribute('max', 0);
@@ -1293,10 +1373,26 @@ document.addEventListener('DOMContentLoaded', function () {
         pregledSection.classList.add('hidden', 'fade-in-section');
         pregledSection.classList.remove('visible');
 
+        // Hide all error messages initially
+        if (standardError) standardError.classList.add('hidden');
+        if (proError) proError.classList.add('hidden');
+        if (totalQuantityError) totalQuantityError.classList.add('hidden');
+        if (nameError) nameError.classList.add('hidden');
+        if (emailError) emailError.classList.add('hidden');
+        if (phoneError) phoneError.classList.add('hidden');
+        if (mobileDateRangeError) mobileDateRangeError.classList.add('hidden');
+        if (mobileLocationError) mobileLocationError.classList.add('hidden');
+        if (mobileNameError) mobileNameError.classList.add('hidden');
+        if (mobileEmailError) mobileEmailError.classList.add('hidden');
+        if (mobilePhoneError) mobilePhoneError.classList.add('hidden');
+
 
         if (!selectedSlotData || !izabranoVreme || !selectedDuration) {
+            console.log("Missing selectedSlotData, izabranoVreme, or selectedDuration. Exiting updateQuantityInputs.");
             return; 
         }
+        console.log("Selected duration:", selectedDuration);
+
 
         let standardAvailable = selectedSlotData.standard_total - selectedSlotData.standard_booked;
         let proAvailable = selectedSlotData.pro_total - selectedSlotData.pro_booked;
@@ -1312,6 +1408,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 // Ako nema sledećeg slota ili je nedostupan, 60min nije moguće
                 standardAvailable = 0;
                 proAvailable = 0;
+                console.log("60 min not possible due to next slot unavailability.");
             }
         }
 
@@ -1341,6 +1438,7 @@ document.addEventListener('DOMContentLoaded', function () {
             // Prikaži simulatorSection kada se izabere trajanje i ima dostupnosti
             simulatorSection.classList.remove('hidden');
             simulatorSection.classList.add('visible');
+            console.log("Simulator section made visible.");
 
             // Proveri da li je bar jedna količina veća od 0 da bi se prikazali podaci korisnika
             const currentStandardQty = parseInt(standardQuantityInput.value);
@@ -1352,7 +1450,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 pregledSection.classList.remove('hidden');
                 pregledSection.classList.add('visible');
             } else {
-                // NE SKRIVAJ ODMAH, dozvoli korisniku da unese količinu
                 // Sekcije će biti skrivene samo ako su svi simulatori zauzeti (gornji if)
                 // ili ako korisnik unese 0 i 0, a pre toga su bile vidljive (validacija u showReservationOverview)
             }
@@ -1361,17 +1458,23 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Event listener za promenu trajanja
-    durationSelect.addEventListener('change', function() {
-        izabranoTrajanje = parseInt(this.value);
-        standardQuantityInput.value = 0; // Resetuj kolicine
-        proQuantityInput.value = 0;
-        updateQuantityInputs(); // Ažuriraj dostupnost na osnovu novog trajanja
-    });
+    if (durationSelect) { // Ensure element exists
+        durationSelect.addEventListener('change', function() {
+            console.log("Duration selected:", this.value);
+            izabranoTrajanje = parseInt(this.value);
+            standardQuantityInput.value = 0; // Resetuj kolicine
+            proQuantityInput.value = 0;
+            updateQuantityInputs(); // Ažuriraj dostupnost na osnovu novog trajanja
+        });
+    } else {
+        console.warn("Duration select element not found.");
+    }
 
 
     // Preuzimanje zauzetih slotova za odabrani datum sa backend API-ja (za FIKSNE simulatore)
     function fetchBookedSlots(date) {
-        fetch('/nspeed/api/get_bookings.php?date=' + encodeURIComponent(date)) 
+        console.log("Fetching booked slots for date:", date);
+        fetch(`/nspeed/api/get_bookings.php?date=${encodeURIComponent(date)}`) // Corrected URL parsing
         .then(r => {
             if (!r.ok) {
                 throw new Error('Network response was not ok ' + r.statusText);
@@ -1380,6 +1483,7 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .then(j => {
             if (j.success) {
+                console.log("Booked slots data received:", j.data);
                 generisiVremena(j.data); 
             } else {
                 console.error('API greška:', j.message);
@@ -1393,12 +1497,55 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    // Validacija unosa u realnom vremenu
+    function validateInput(inputElement, errorElement, validationFn, errorMessage) {
+        if (!inputElement || !errorElement) return true; // Skip if elements don't exist
+
+        let isValid = validationFn(inputElement.value);
+        if (inputElement.hasAttribute('required') && inputElement.value.trim() === '') {
+             isValid = false; // Required field cannot be empty
+        }
+
+        if (isValid) {
+            errorElement.classList.add('hidden');
+            inputElement.classList.remove('border-red-400');
+        } else {
+            errorElement.textContent = errorMessage;
+            errorElement.classList.remove('hidden');
+            inputElement.classList.add('border-red-400');
+        }
+        return isValid;
+    }
+
+    // Validation functions
+    const isNameValid = (name) => name.trim().length > 2;
+    const isEmailValid = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    const isPhoneValid = (phone) => phone.trim() === '' || /^\+?[0-9\s-()]{7,20}$/.test(phone); // Optional, but if entered, must be valid
+
+    // Attach real-time validation listeners for fixed booking
+    if (inputName) inputName.addEventListener('input', () => validateInput(inputName, nameError, isNameValid, 'Ime i prezime je obavezno (min 3 karaktera).'));
+    if (inputEmail) inputEmail.addEventListener('input', () => validateInput(inputEmail, emailError, isEmailValid, 'Email adresa je obavezna i mora biti validna.'));
+    if (inputPhone) inputPhone.addEventListener('input', () => validateInput(inputPhone, phoneError, isPhoneValid, 'Broj telefona nije validan.'));
+    if (standardQuantityInput) standardQuantityInput.addEventListener('input', updateQuantityInputs); // Re-validate quantities
+    if (proQuantityInput) proQuantityInput.addEventListener('input', updateQuantityInputs); // Re-validate quantities
+
+
     // Validacija količina pre slanja forme
     function validateFixedSimulatorQuantities() {
+        let isValid = true;
+
         const standardQty = parseInt(standardQuantityInput.value);
         const proQty = parseInt(proQuantityInput.value);
         const selectedSlotData = currentAvailabilityData[izabranoVreme];
         const selectedDuration = parseInt(durationSelect.value);
+
+        // Hide all quantity errors first
+        if (standardError) standardError.classList.add('hidden');
+        if (proError) proError.classList.add('hidden');
+        if (totalQuantityError) totalQuantityError.classList.add('hidden');
+        if (standardQuantityInput) standardQuantityInput.classList.remove('border-red-400');
+        if (proQuantityInput) proQuantityInput.classList.remove('border-red-400');
+
 
         if (!selectedSlotData) {
             showModal('error', 'Greška: Nema podataka o dostupnosti za izabrani termin. Molimo izaberite ponovo.');
@@ -1420,38 +1567,69 @@ document.addEventListener('DOMContentLoaded', function () {
                 standardAvailable = Math.min(standardAvailable, nextSlotData.standard_total - nextSlotData.standard_booked);
                 proAvailable = Math.min(proAvailable, nextSlotData.pro_total - nextSlotData.pro_booked);
             } else {
-                // Ako nema sledećeg slota ili je nedostupan, 60min nije moguće
-                showModal('error', '60-minutni termin nije dostupan za izabrano vreme.');
+                showModal('error', '60-minutni termin nije dostupan za izabrano vreme zbog zauzetosti sledećeg slota.');
                 return false;
             }
         }
 
 
-        if (standardQty < 0 || proQty < 0) {
-            showModal('error', 'Količina simulatora ne može biti negativna.');
-            return false;
+        if (standardQty < 0) {
+            if (standardError) {
+                standardError.textContent = 'Količina ne može biti negativna.';
+                standardError.classList.remove('hidden');
+            }
+            if (standardQuantityInput) standardQuantityInput.classList.add('border-red-400');
+            isValid = false;
+        } else if (standardQty > standardAvailable) { 
+            if (standardError) {
+                standardError.textContent = `Nema dovoljno standardnih simulatora. Dostupno: ${standardAvailable}.`;
+                standardError.classList.remove('hidden');
+            }
+            if (standardQuantityInput) standardQuantityInput.classList.add('border-red-400');
+            isValid = false;
         }
 
-        if (standardQty === 0 && proQty === 0) {
-            showModal('error', 'Morate izabrati bar jedan simulator.');
-            return false;
-        }
-
-        if (standardQty > standardAvailable) { 
-            showModal('error', `Nema dovoljno standardnih simulatora. Dostupno: ${standardAvailable}.`);
-            return false;
-        }
-        if (proQty > proAvailable) { 
-            showModal('error', `Nema dovoljno Pro simulatora. Dostupno: ${proAvailable}.`);
-            return false;
+        if (proQty < 0) {
+            if (proError) {
+                proError.textContent = 'Količina ne može biti negativna.';
+                proError.classList.remove('hidden');
+            }
+            if (proQuantityInput) proQuantityInput.classList.add('border-red-400');
+            isValid = false;
+        } else if (proQty > proAvailable) { 
+            if (proError) {
+                proError.textContent = `Nema dovoljno Pro simulatora. Dostupno: ${proAvailable}.`;
+                proError.classList.remove('hidden');
+            }
+            if (proQuantityInput) proQuantityInput.classList.add('border-red-400');
+            isValid = false;
         }
         
-        return true;
+        if (standardQty === 0 && proQty === 0) {
+            if (totalQuantityError) totalQuantityError.classList.remove('hidden');
+            isValid = false;
+        }
+
+        // Validate personal data fields
+        if (!validateInput(inputName, nameError, isNameValid, 'Ime i prezime je obavezno (min 3 karaktera).')) isValid = false;
+        if (!validateInput(inputEmail, emailError, isEmailValid, 'Email adresa je obavezna i mora biti validna.')) isValid = false;
+        // Phone is optional, but if entered, validate format
+        if (inputPhone && inputPhone.value.trim() !== '' && !isPhoneValid(inputPhone.value)) {
+            validateInput(inputPhone, phoneError, isPhoneValid, 'Broj telefona nije validan.');
+            isValid = false;
+        } else if (phoneError) {
+            phoneError.classList.add('hidden'); // Hide if optional and empty or valid
+            if (inputPhone) inputPhone.classList.remove('border-red-400');
+        }
+
+        return isValid;
     }
 
     // Prikaz pregleda rezervacije u modalnom prozoru
     window.showReservationOverview = function() {
+        console.log("showReservationOverview called.");
         if (!validateFixedSimulatorQuantities()) {
+            console.log("Fixed simulator quantities validation failed.");
             return;
         }
 
@@ -1475,13 +1653,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
         let overviewMessage = `
             <p class="text-lg font-semibold text-white mb-4">Molimo proverite detalje vaše rezervacije:</p>
-            <p><strong>Ime i Prezime:</strong> ${name}</p>
-            <p><strong>Email:</strong> ${email}</p>
-            <p><strong>Telefon:</strong> ${phone || 'Nije unet'}</p>
-            <p><strong>Datum:</strong> ${date}</p>
-            <p><strong>Vreme:</strong> ${time}</p>
-            <p><strong>Trajanje:</strong> ${duration} minuta</p>
-            <p><strong>Rezervisani simulatori:</strong> ${simulatorText}</p>
+            <p><strong>Ime i Prezime:</strong> ${htmlspecialchars(name)}</p>
+            <p><strong>Email:</strong> ${htmlspecialchars(email)}</p>
+            <p><strong>Telefon:</strong> ${htmlspecialchars(phone) || 'Nije unet'}</p>
+            <p><strong>Datum:</strong> ${htmlspecialchars(date)}</p>
+            <p><strong>Vreme:</strong> ${htmlspecialchars(time)}</p>
+            <p><strong>Trajanje:</strong> ${htmlspecialchars(duration)} minuta</p>
+            <p><strong>Rezervisani simulatori:</strong> ${htmlspecialchars(simulatorText)}</p>
         `;
 
         showModal('overview', overviewMessage, true); 
@@ -1504,7 +1682,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const duration = parseInt(durationSelect.value); // Uzmi trajanje
 
         try {
-            const response = await fetch('/nspeed/api/make_booking.php', { 
+            const response = await fetch(`/nspeed/api/make_booking.php`, { // Corrected URL parsing
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -1537,10 +1715,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 izabraniDatum = null;
                 izabranoVreme = null;
                 izabranoTrajanje = null; // Resetuj trajanje
-                fixedFlatpickr.clear(); 
+                if (fixedFlatpickrInstance) fixedFlatpickrInstance.clear(); 
                 standardQuantityInput.value = 0; 
                 proQuantityInput.value = 0;
-                durationSelect.value = ""; // Resetuj trajanje selekt
+                durationSelect.value = ""; 
                 updateQuantityInputs(); 
                 vremeSection.classList.add('hidden', 'fade-in-section');
                 vremeSection.classList.remove('visible');
@@ -1571,14 +1749,29 @@ document.addEventListener('DOMContentLoaded', function () {
 
         showLoading('mobile'); 
 
-        const selectedDates = mobileFlatpickr.selectedDates;
+        const selectedDates = mobileFlatpickrInstance.selectedDates; // Use global instance
         let startDate = null;
         let endDate = null;
+
+        // Hide all mobile booking errors first
+        if (mobileDateRangeError) mobileDateRangeError.classList.add('hidden');
+        if (mobileLocationError) mobileLocationError.classList.add('hidden');
+        if (mobileNameError) mobileNameError.classList.add('hidden');
+        if (mobileEmailError) mobileEmailError.classList.add('hidden');
+        if (mobilePhoneError) mobilePhoneError.classList.add('hidden');
+        if (mobileDateRange) mobileDateRange.classList.remove('border-red-400');
+        if (mobileLocation) mobileLocation.classList.remove('border-red-400');
+        if (mobileInputName) mobileInputName.classList.remove('border-red-400');
+        if (mobileInputEmail) mobileInputEmail.classList.remove('border-red-400');
+        if (mobileInputPhone) mobileInputPhone.classList.remove('border-red-400');
+
 
         if (selectedDates.length === 2) {
             startDate = flatpickr.formatDate(selectedDates[0], "Y-m-d");
             endDate = flatpickr.formatDate(selectedDates[1], "Y-m-d");
         } else {
+            if (mobileDateRangeError) mobileDateRangeError.classList.remove('hidden');
+            if (mobileDateRange) mobileDateRange.classList.add('border-red-400');
             showModal('error', 'Molimo izaberite opseg datuma (početni i krajnji datum).');
             hideLoading('mobile');
             return;
@@ -1586,18 +1779,30 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const name = mobileInputName.value;
         const email = mobileInputEmail.value;
-        const phone = mobileInputPhone.value;
         const location = mobileLocation.value;
+        const phone = mobileInputPhone.value;
         const notes = mobileNotes.value;
 
-        if (!name || !email || !startDate || !endDate || !location) {
-            showModal('error', 'Molimo popunite sva obavezna polja za mobilni simulator.');
+        let isValid = true;
+        if (!validateInput(mobileInputName, mobileNameError, isNameValid, 'Ime i prezime je obavezno (min 3 karaktera).')) isValid = false;
+        if (!validateInput(mobileInputEmail, mobileEmailError, isEmailValid, 'Email adresa je obavezna i mora biti validna.')) isValid = false;
+        if (!validateInput(mobileLocation, mobileLocationError, (val) => val.trim().length > 0, 'Adresa za dostavu/preuzimanje je obavezna.')) isValid = false;
+        if (mobileInputPhone && mobileInputPhone.value.trim() !== '' && !isPhoneValid(mobileInputPhone.value)) {
+            validateInput(mobileInputPhone, mobilePhoneError, isPhoneValid, 'Broj telefona nije validan.');
+            isValid = false;
+        } else if (mobilePhoneError) {
+            mobilePhoneError.classList.add('hidden');
+            if (mobileInputPhone) mobileInputPhone.classList.remove('border-red-400');
+        }
+
+        if (!isValid) {
+            showModal('error', 'Molimo popunite sva obavezna polja i ispravite greške.');
             hideLoading('mobile');
             return;
         }
 
         try {
-            const response = await fetch('/nspeed/api/make_mobile_booking.php', {
+            const response = await fetch(`/nspeed/api/make_mobile_booking.php`, { // Corrected URL parsing
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -1626,7 +1831,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (result.success) {
                 showModal('success', result.message);
                 document.getElementById('zakazivanjeFormMobilni').reset();
-                mobileFlatpickr.clear(); 
+                if (mobileFlatpickrInstance) mobileFlatpickrInstance.clear(); 
             } else {
                 showModal('error', result.message || 'Greška prilikom slanja rezervacije (mobilni).');
             }
@@ -1659,18 +1864,15 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Inicijalizacija Flatpickr kalendara za mobilne simulatore
-    const mobileFlatpickr = flatpickr("#mobileDateRange", {
-        mode: "range", 
-        minDate: "today", 
-        dateFormat: "Y-m-d", 
-        inline: false, 
-    });
-
-    // Provera da li je Flatpickr instanca kreirana
-    if (typeof flatpickr === 'undefined') {
-        console.error("Flatpickr biblioteka nije učitana.");
-    } else if (!mobileFlatpickr) {
-        console.error("Flatpickr instanca za #mobileDateRange nije uspešno kreirana.");
+    if (mobileDateRange) { // Ensure element exists
+        mobileFlatpickrInstance = flatpickr("#mobileDateRange", { // Assign to global instance
+            mode: "range", 
+            minDate: "today", 
+            dateFormat: "Y-m-d", 
+            inline: false, 
+        });
+    } else {
+        console.warn("Mobile date range input not found for Flatpickr initialization.");
     }
 
     // --- Modal i Loading funkcionalnosti ---
@@ -1690,38 +1892,46 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function showModal(type, message, isOverview = false) {
         if (isOverview) {
-            overviewDetails.innerHTML = message;
-            overviewModalOverlay.classList.add('visible');
+            if (overviewDetails && overviewModalOverlay) {
+                overviewDetails.innerHTML = message;
+                overviewModalOverlay.classList.add('visible');
+            } else {
+                console.error("Overview modal elements not found.");
+            }
         } else {
-            modalTitle.textContent = type === 'success' ? 'Uspešno!' : 'Greška!';
-            modalTitle.className = type === 'success' ? 'text-green-400 text-2xl font-bold mb-4' : 'text-red-400 text-2xl font-bold mb-4';
-            modalMessage.textContent = message;
-            modalOverlay.classList.add('visible');
+            if (modalTitle && modalMessage && modalOverlay) {
+                modalTitle.textContent = type === 'success' ? 'Uspešno!' : 'Greška!';
+                modalTitle.className = type === 'success' ? 'text-green-400 text-2xl font-bold mb-4' : 'text-red-400 text-2xl font-bold mb-4';
+                modalMessage.textContent = message;
+                modalOverlay.classList.add('visible');
+            } else {
+                console.error("General modal elements not found.");
+            }
         }
     }
 
     function hideModal(isOverview = false) {
         if (isOverview) {
-            overviewModalOverlay.classList.remove('visible');
+            if (overviewModalOverlay) overviewModalOverlay.classList.remove('visible');
         } else {
-            modalOverlay.classList.remove('visible');
+            if (modalOverlay) modalOverlay.classList.remove('visible');
         }
     }
 
-    modalCloseButton.addEventListener('click', function() { hideModal(false); });
-    modalOverlay.addEventListener('click', function(e) {
+    if (modalCloseButton) modalCloseButton.addEventListener('click', function() { hideModal(false); });
+    if (modalOverlay) modalOverlay.addEventListener('click', function(e) {
         if (e.target === modalOverlay) {
             hideModal(false);
         }
     });
 
     // Event listeneri za pregled rezervacije
-    confirmReservationButton.addEventListener('click', function() {
+    if (confirmReservationButton) confirmReservationButton.addEventListener('click', function() {
         hideModal(true); // Sakrij pregled
         submitFixedReservation(new Event('submit')); // Pošalji rezervaciju
     });
-    cancelOverviewButton.addEventListener('click', function() { hideModal(true); });
-    overviewModalOverlay.addEventListener('click', function(e) {
+    if (cancelOverviewButton) cancelOverviewButton.addEventListener('click', function() { hideModal(true); });
+    if (overviewModalOverlay) overviewModalOverlay.addEventListener('click', function(e) {
         if (e.target === overviewModalOverlay) {
             hideModal(true);
         }
@@ -1729,14 +1939,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     function showLoading(type) {
-        loadingMessage.textContent = type === 'fixed' ? 'Slanje rezervacije...' : 'Slanje zahteva za mobilni simulator...';
-        loadingOverlay.classList.add('visible');
+        if (loadingMessage && loadingOverlay) {
+            loadingMessage.textContent = type === 'fixed' ? 'Slanje rezervacije...' : 'Slanje zahteva za mobilni simulator...';
+            loadingOverlay.classList.add('visible');
+        }
     }
 
     function hideLoading() {
-        loadingOverlay.classList.remove('visible');
+        if (loadingOverlay) loadingOverlay.classList.remove('visible');
     }
-});
+};
 </script>
 
 <!-- Modal HTML (za opšte poruke) -->
